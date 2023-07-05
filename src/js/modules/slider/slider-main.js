@@ -1,63 +1,63 @@
-import Slider from './slider';
+import Slider from "./slider";
 
 export default class MainSlider extends Slider {
-	constructor(page, btns) {
-		super(page, btns);
-	}
+  constructor(btns) {
+    super(btns);
+  }
 
-	showSlides(n) {
-		if (n > this.slidesArr.length) {
-			this.slideIndex = 1;
-		}
+  showSlides(n) {
+    if (n > this.slidesArr.length) {
+      this.slideIndex = 1;
+    }
 
-		if (n < 1) {
-			this.slideIndex = this.slidesArr.length;
-		}
+    if (n < 1) {
+      this.slideIndex = this.slidesArr.length;
+    }
 
-		try {
-			this.hanson.style.opacity = '0';
-			if (n === 3) {
-				this.hanson.classList.add('animated');
-				setTimeout(() => {
-					this.hanson.style.opacity = '1';
-					this.hanson.classList.add('slideInUp');
-				}, 3000);
-			} else {
-				this.hanson.classList.remove('slideInUp');
-			}
-		} catch (error) {
-			console.log(error);
-		}
+    try {
+      this.hanson.style.opacity = "0";
+      if (n === 3) {
+        this.hanson.classList.add("animated");
+        setTimeout(() => {
+          this.hanson.style.opacity = "1";
+          this.hanson.classList.add("slideInUp");
+        }, 3000);
+      } else {
+        this.hanson.classList.remove("slideInUp");
+      }
+    } catch (error) {
+      console.log(error);
+    }
 
-		this.slidesArr.forEach((slide) => {
-			slide.style.display = 'none';
-		});
+    this.slidesArr.forEach((slide) => {
+      slide.style.display = "none";
+    });
 
-		this.slidesArr[this.slideIndex - 1].style.display = 'block';
-	}
+    this.slidesArr[this.slideIndex - 1].style.display = "block";
+  }
 
-	plusSlides(n) {
-		this.showSlides((this.slideIndex += n));
-	}
+  plusSlides(n) {
+    this.showSlides((this.slideIndex += n));
+  }
 
-	render() {
-		try {
-			this.hanson = document.querySelector('.hanson');
-		} catch (error) {
-			console.log(error);
-		}
-		this.btns.forEach((item) => {
-			item.addEventListener('click', () => {
-				this.plusSlides(1);
-			});
+  render() {
+    try {
+      this.hanson = document.querySelector(".hanson");
+    } catch (error) {
+      console.log(error);
+    }
+    this.btns.forEach((item) => {
+      item.addEventListener("click", () => {
+        this.plusSlides(1);
+      });
 
-			item.parentNode.previousElementSibling.addEventListener('click', (e) => {
-				e.preventDefault();
-				this.slideIndex = 1;
-				this.showSlides(this.slideIndex);
-			});
-		});
+      item.parentNode.previousElementSibling.addEventListener("click", (e) => {
+        e.preventDefault();
+        this.slideIndex = 1;
+        this.showSlides(this.slideIndex);
+      });
+    });
 
-		this.showSlides(this.slideIndex);
-	}
+    this.showSlides(this.slideIndex);
+  }
 }
